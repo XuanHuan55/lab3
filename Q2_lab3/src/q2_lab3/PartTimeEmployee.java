@@ -9,20 +9,26 @@ package q2_lab3;
  * @author ASUS
  */
 public class PartTimeEmployee extends Employee {
+
     private int workingHour;
     private float payRate;
 
-    public PartTimeEmployee(int id, String name, int yearOfBirth, String address, String phone, int workingHours, double payRate1) {
+    public PartTimeEmployee() {
     }
 
-    public PartTimeEmployee(int workingHour, float payRate, String id, String name, int yearOfBirth, String address, String phone,double payment) {
-        super(id, name, yearOfBirth, address, phone,payment);
+    public PartTimeEmployee(int workingHour, float payRate, String id, String name, int yearOfBirth, String address, String phone) {
+        super(id, name, yearOfBirth, address, phone);
         this.workingHour = workingHour;
         this.payRate = payRate;
     }
-    
-    public void calculatePayment(){
-        payment = workingHour * payRate;
+@Override
+    public String getInfo() {
+        return "ID: " + id + ", Name: " + name + ", Year of birth: " + yearOfBirth + ", Address: " + address + ", Phone: " + phone + ", Working hours: " + workingHour + ", payment per hour: " + payRate + ", salary: " + getPayment();
     }
-     
+
+    @Override
+    public float getPayment() {
+        return workingHour * payRate;
+    }
+
 }

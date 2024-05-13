@@ -9,17 +9,17 @@ package q2_lab3;
  * @author ASUS
  */
 abstract class Employee {
-    private String id;
+    protected String id;
     String name;
     int yearOfBirth;
     String address;
     String phone;
-    double payment;
+    
 
     public Employee() {
     }
 
-    public Employee(String id, String name, int yearOfBirth, String address, String phone,double payment) {
+    public Employee(String id, String name, int yearOfBirth, String address, String phone) {
         this.id = id;
         this.name = name;
         this.yearOfBirth = yearOfBirth;
@@ -67,22 +67,8 @@ abstract class Employee {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public double getPayment() {
-        return payment;
-    }
-
-    public void setPayment(double payment) {
-        this.payment = payment;
-    }
     
-    public abstract void calculatePayment();
     
-    public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Year of birth: " + yearOfBirth + ", Address: " + address  + ", Payment: $" + payment;
-    }
-    
-    public void getInfo(){
-        
-    }
+    public abstract String getInfo();
+    public abstract float getPayment();
 }

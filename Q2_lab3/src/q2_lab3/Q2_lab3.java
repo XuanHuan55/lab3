@@ -8,11 +8,8 @@ import java.util.*;
 
 public class Q2_lab3 {
 
-    /**
-     * @param args the command line arguments
-     */
-    private static List<Employee> fullTimeEmployees = new ArrayList<>();
-    private static List<Employee> partTimeEmployees = new ArrayList<>();
+    private static List<FullTimeEmployee> fullTimeEmployees = new ArrayList<>();
+    private static List<PartTimeEmployee> partTimeEmployees = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -77,104 +74,101 @@ public class Q2_lab3 {
     private static void addFullTimeEmployee() {
         System.out.print("Enter the number of full time employee: ");
         int n = scanner.nextInt();
-        while (n-- > 0) {
-            System.out.print("Enter Employee ID: ");
-            int id = scanner.nextInt();
-            scanner.nextLine();
+        for (int i = 1; i <= n; i++) {
+            {
+                System.out.print("Enter Employee ID " + i + ": ");
+                String id = scanner.next();
 
-            System.out.print("Enter FT_Employee Name: ");
-            String name = scanner.nextLine();
+                System.out.print("Enter FT_Employee Name " + i + ": ");
+                String name = scanner.next();
 
-            System.out.print("Enter FT_Employee year of birth: ");
-            int yearOfBirth = scanner.nextInt();
-            scanner.nextLine();
+                System.out.print("Enter FT_Employee year of birth " + i + ": ");
+                int yearOfBirth = scanner.nextInt();
+                scanner.nextLine();
 
-            System.out.print("Enter FT_Employee address: ");
-            String address = scanner.nextLine();
+                System.out.print("Enter FT_Employee address " + i + ": ");
+                String address = scanner.next();
 
-            System.out.print("Enter FT_Employee phone: ");
-            String phone = scanner.nextLine();
+                System.out.print("Enter FT_Employee phone " + i + ": ");
+                String phone = scanner.next();
 
-            System.out.print("Enter FT_Employee Salary: ");
-            double salary = scanner.nextDouble();
+                System.out.print("Enter FT_Employee Salary " + i + ": ");
+                float salary = scanner.nextFloat();
 
-            Employee employee = new FullTimeEmployee(id, name, yearOfBirth, address, phone, salary);
-            fullTimeEmployees.add(employee);
-            System.out.println("Full-time Employee added successfully!");
+                FullTimeEmployee ft_employee = new FullTimeEmployee(salary, id, name, yearOfBirth, address, phone);
+                fullTimeEmployees.add(ft_employee);
+                System.out.println("Full-time Employee added successfully!");
+            }
         }
     }
 
     private static void addPartTimeEmployee() {
         System.out.print("Enter the number of part time employee: ");
         int n = scanner.nextInt();
-        while (n-- > 0) {
-            System.out.print("Enter PT_Employee ID: ");
-            int id = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+        for(int i = 1;i <= n;i++) {
+            System.out.print("Enter PT_Employee ID " + i + ": ");
+            String id = scanner.next();
 
-            System.out.print("Enter PT_Employee Name: ");
-            String name = scanner.nextLine();
+            System.out.print("Enter PT_Employee Name " + i + ": ");
+            String name = scanner.next();
 
-            System.out.print("Enter PT_Employee year of birth: ");
+            System.out.print("Enter PT_Employee year of birth " + i + ": ");
             int yearOfBirth = scanner.nextInt();
             scanner.nextLine();
 
-            System.out.print("Enter PT_Employee address: ");
-            String address = scanner.nextLine();
+            System.out.print("Enter PT_Employee address " + i + ": ");
+            String address = scanner.next();
 
-            System.out.print("Enter PT_Employee phone: ");
-            String phone = scanner.nextLine();
+            System.out.print("Enter PT_Employee phone " + i + ": ");
+            String phone = scanner.next();
 
-            System.out.print("Enter PT_Employee Working Hours: ");
+            System.out.print("Enter PT_Employee Working Hours " + i + ": ");
             int workingHours = scanner.nextInt();
 
-            System.out.print("Enter PT_Employee Pay Rate: ");
-            double payRate = scanner.nextDouble();
+            System.out.print("Enter PT_Employee Pay Rate " + i + ": ");
+            float payRate = scanner.nextFloat();
 
-            Employee employee = new PartTimeEmployee(id, name, yearOfBirth, address, phone, workingHours, payRate);
-            partTimeEmployees.add(employee);
+            PartTimeEmployee pt_employee = new PartTimeEmployee(workingHours, payRate, id, name, yearOfBirth, address, phone);
+            partTimeEmployees.add(pt_employee);
             System.out.println("Part-time Employee added successfully!");
         }
     }
 
     private static void showAllFullTimeEmployees() {
         System.out.println("\nAll Full-time Employees:");
-        for (Employee employee : fullTimeEmployees) {
-            System.out.println(employee);
+        for (FullTimeEmployee ft_employee : fullTimeEmployees) {
+            System.out.println(ft_employee.getInfo());
         }
     }
 
     private static void showAllPartTimeEmployees() {
         System.out.println("\nAll Part-time Employees:");
-        for (Employee employee : partTimeEmployees) {
-            System.out.println(employee);
+        for (PartTimeEmployee pt_employee : partTimeEmployees) {
+            System.out.println(pt_employee.getInfo());
         }
     }
 
     private static void showAllEmployees() {
         System.out.println("\nAll Employees:");
-        System.out.println("Full-time Employees:");
         showAllFullTimeEmployees();
-        System.out.println("Part-time Employees:");
         showAllPartTimeEmployees();
     }
 
     private static void searchEmployeeById() {
         System.out.print("Enter Employee ID to search: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        String id = scanner.next();
 
         Employee find = null;
-        for (Employee employee : fullTimeEmployees) {
-            if (employee.getId().equals(id)) {
-                find = employee;
+        for (FullTimeEmployee ft_employee : fullTimeEmployees) {
+            if (ft_employee.getId().equals(id)) {
+                find = ft_employee;
                 break;
             }
         }
         if (find == null) {
-            for (Employee employee : partTimeEmployees) {
-                if (employee.getId().equals(id)) {
-                    find = employee;
+            for (PartTimeEmployee pt_employee : partTimeEmployees) {
+                if (pt_employee.getId().equals(id)) {
+                    find = pt_employee;
                     break;
                 }
             }
@@ -182,7 +176,7 @@ public class Q2_lab3 {
 
         if (find != null) {
             System.out.println("Employee found:");
-            System.out.println(find);
+            System.out.println(find.getInfo());
         } else {
             System.out.println("Employee with ID " + id + " not found.");
         }
@@ -190,22 +184,21 @@ public class Q2_lab3 {
 
     private static void deleteEmployeeById() {
         System.out.print("Enter Employee ID to delete: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        String id = scanner.next();
 
         boolean found = false;
-        for (Iterator<Employee> iterator = fullTimeEmployees.iterator(); iterator.hasNext();) {
-            Employee employee = iterator.next();
-            if (employee.getId().equals(id)) {
+        for (Iterator<FullTimeEmployee> iterator = fullTimeEmployees.iterator(); iterator.hasNext();) {
+            FullTimeEmployee ft_employee = iterator.next();
+            if (ft_employee.getId().equals(id)) {
                 iterator.remove();
                 found = true;
                 break;
             }
         }
         if (!found) {
-            for (Iterator<Employee> iterator = partTimeEmployees.iterator(); iterator.hasNext();) {
-                Employee employee = iterator.next();
-                if (employee.getId().equals(id)) {
+            for (Iterator<PartTimeEmployee> iterator = partTimeEmployees.iterator(); iterator.hasNext();) {
+                PartTimeEmployee pt_employee = iterator.next();
+                if (pt_employee.getId().equals(id)) {
                     iterator.remove();
                     found = true;
                     break;
@@ -222,21 +215,20 @@ public class Q2_lab3 {
 
     private static void editEmployeeById() {
         System.out.print("Enter Employee ID to edit: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        String id = scanner.next();
 
         boolean found = false;
-        for (Employee employee : fullTimeEmployees) {
-            if (employee.getId().equals(id)) {
-                editEmployeeDetails(employee);
+        for (FullTimeEmployee ft_employee : fullTimeEmployees) {
+            if (ft_employee.getId().equals(id)) {
+                editEmployeeDetails(ft_employee);
                 found = true;
                 break;
             }
         }
         if (!found) {
-            for (Employee employee : partTimeEmployees) {
-                if (employee.getId().equals(id)) {
-                    editEmployeeDetails(employee);
+            for (PartTimeEmployee pt_employee : partTimeEmployees) {
+                if (pt_employee.getId().equals(id)) {
+                    editEmployeeDetails(pt_employee);
                     found = true;
                     break;
                 }
@@ -250,16 +242,17 @@ public class Q2_lab3 {
 
     private static void editEmployeeDetails(Employee employee) {
         System.out.print("Enter new Name: ");
-        employee.name = scanner.nextLine();
+        employee.name = scanner.next();
 
         System.out.print("Enter new year of birth: ");
         employee.yearOfBirth = scanner.nextInt();
-
+        scanner.nextLine();
+        
         System.out.print("Enter new address: ");
-        employee.address = scanner.nextLine();
+        employee.address = scanner.next();
 
         System.out.print("Enter new phone: ");
-        employee.phone = scanner.nextLine();
+        employee.phone = scanner.next();
     }
 
     private static void searchEmployeeByPayment() {
@@ -270,15 +263,15 @@ public class Q2_lab3 {
 
         System.out.println("Employees within Payment range:");
         boolean found = false;
-        for (Employee employee : fullTimeEmployees) {
-            if (employee.getPayment() >= lowerLimit && employee.getPayment() <= upperLimit) {
-                System.out.println(employee);
+        for (FullTimeEmployee ft_employee : fullTimeEmployees) {
+            if (ft_employee.getPayment() >= lowerLimit && ft_employee.getPayment() <= upperLimit) {
+                System.out.println(ft_employee.getInfo());
                 found = true;
             }
         }
-        for (Employee employee : partTimeEmployees) {
-            if (employee.getPayment() >= lowerLimit && employee.getPayment() <= upperLimit) {
-                System.out.println(employee);
+        for (PartTimeEmployee pt_employee : partTimeEmployees) {
+            if (pt_employee.getPayment() >= lowerLimit && pt_employee.getPayment() <= upperLimit) {
+                System.out.println(pt_employee.getInfo());
                 found = true;
             }
         }
@@ -292,9 +285,7 @@ public class Q2_lab3 {
         Collections.sort(partTimeEmployees, Comparator.comparingInt(Employee::getYearOfBirth).thenComparingDouble(Employee::getPayment));
 
         System.out.println("Employees sorted by Age, Payment:");
-        System.out.println("Full-time Employees:");
         showAllFullTimeEmployees();
-        System.out.println("Part-time Employees:");
         showAllPartTimeEmployees();
     }
 }
